@@ -36,8 +36,8 @@ Space.Game.prototype = {
 		// set health of the player
 		Space._health = 10;
 		// create new group for candy
-		this._candyGroup = this.add.group();
-		// spawn first candy
+		this._enemyGroup = this.add.group();
+		// spawn first enemy
 		Space.item.spawnSpace(this);
 	},
 	managePause: function(){
@@ -60,13 +60,13 @@ Space.Game.prototype = {
 		if(this._spawnSpaceTimer > 1000) {
 			// reset it
 			this._spawnSpaceTimer = 0;
-			// and spawn new candy
+			// and spawn new enemy
 			Space.item.spawnSpace(this);
 		}
-		// loop through all candy on the screen
-		this._candyGroup.forEach(function(candy){
+		// loop through all enemy on the screen
+		this._enemyGroup.forEach(function(enemy){
 			// to rotate them accordingly
-			candy.angle += candy.rotateMe;
+			enemy.angle += enemy.rotateMe;
 		});
 		// if the health of the player drops to 0, the player dies = game over
 		if(!Space._health) {
@@ -82,44 +82,44 @@ Space.item = {
 	spawnSpace: function(game){
 		// calculate drop position (from 0 to game width) on the x axis
 		var dropPos = Math.floor(Math.random()*Space.GAME_WIDTH);
-		// define the offset for every candy
+		// define the offset for every enemy
 		var dropOffset = [-27,-36,-36,-38,-48];
-		// randomize candy type
-		var candyType = Math.floor(Math.random()*5);
-		// create new candy
-		var candy = game.add.sprite(dropPos, dropOffset[candyType], 'candy');
+		// randomize enemy type
+		var enemyType = Math.floor(Math.random()*5);
+		// create new enemy
+		var enemy = game.add.sprite(dropPos, dropOffset[enemyType], 'enemy');
 		// add new animation frame
-		candy.animations.add('anim', [candyType], 10, true);
+		enemy.animations.add('anim', [enemyType], 10, true);
 		// play the newly created animation
-		candy.animations.play('anim');
-		// enable candy body for physic engine
-		game.physics.enable(candy, Phaser.Physics.ARCADE);
-		// enable candy to be clicked/tapped
-		candy.inputEnabled = true;
+		enemy.animations.play('anim');
+		// enable enemy body for physic engine
+		game.physics.enable(enemy, Phaser.Physics.ARCADE);
+		// enable enemy to be clicked/tapped
+		enemy.inputEnabled = true;
 		// add event listener to click/tap
-		candy.events.onInputDown.add(this.clickSpace, this);
-		// be sure that the candy will fire an event when it goes out of the screen
-		candy.checkWorldBounds = true;
-		// reset candy when it goes out of screen
-		candy.events.onOutOfBounds.add(this.removeSpace, this);
-		// set the anchor (for rotation, position etc) to the middle of the candy
-		candy.anchor.setTo(0.5, 0.5);
+		enemy.events.onInputDown.add(this.clickSpace, this);
+		// be sure that the enemy will fire an event when it goes out of the screen
+		enemy.checkWorldBounds = true;
+		// reset enemy when it goes out of screen
+		enemy.events.onOutOfBounds.add(this.removeSpace, this);
+		// set the anchor (for rotation, position etc) to the middle of the enemy
+		enemy.anchor.setTo(0.5, 0.5);
 		// set the random rotation value
-		candy.rotateMe = (Math.random()*4)-2;
-		// add candy to the group
-		game._candyGroup.add(candy);
+		enemy.rotateMe = (Math.random()*4)-2;
+		// add enemy to the group
+		game._enemyGroup.add(enemy);
 	},
-	clickSpace: function(candy){
-		// kill the candy when it's clicked
-		candy.kill();
+	clickSpace: function(enemy){
+		// kill the enemy when it's clicked
+		enemy.kill();
 		// add points to the score
 		Space._score += 1;
 		// update score text
 		Space._scoreText.setText(Space._score);
 	},
-	removeSpace: function(candy){
-		// kill the candy
-		candy.kill();
+	removeSpace: function(enemy){
+		// kill the enemy
+		enemy.kill();
 		// decrease player's health
 		Space._health -= 10;
 	}
