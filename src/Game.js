@@ -1,79 +1,79 @@
 Space.Game = function(game){
-	// define needed variables for Candy.Game
+	// definir las variables necesarias para el espacio.
 	this._player = null;
 	this._candyGroup = null;
 	this._spawnSpaceTimer = 0;
 	this._fontStyle = null;
-	// define Candy variables to reuse them in Candy.item functions
+	// definir variables espaciales para reutilizarlas en funciones space.item
 	Space._scoreText = null;
 	Space._score = 0;
 	Space._health = 0;
 };
 Space.Game.prototype = {
 	create: function(){
-		// start the physics engine
+		// arranca el motor del juego
 		this.physics.startSystem(Phaser.Physics.ARCADE);
-		// set the global gravity
+		// establecer la gravedad global
 		this.physics.arcade.gravity.y = 200;
-		// display images: background, floor and score
+		// mostrar imágenes: fondo, suelo y puntuación
 		this.add.sprite(0, 0, 'fondo');
 		this.add.sprite(0, 0, 'estrellas');
 		this.add.sprite(-30, Space.GAME_HEIGHT-160, 'floor');
 		this.add.sprite(10, 5, 'score-bg');
-		// add pause button
+		// agregar botón de pausa
 		this.add.button(Space.GAME_WIDTH-96-10, 5, 'button-pause', this.managePause, this);
-		// create the player
+		// Crear el jugador
 		this._player = this.add.sprite(5, 760, 'monster-idle');
-		// add player animation
+		// agregar animación de jugador
 		this._player.animations.add('idle', [0,1,2,3,4,5,6,7,8,9,10,11,12], 10, true);
-		// play the animation
+		// reproducir la animación
 		this._player.animations.play('idle');
-		// set font style
+		// establecer estilo de fuente
 		this._fontStyle = { font: "40px Arial", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
-		// initialize the spawn timer
+		// inicializar el temporizador de generación
 		this._spawnSpaceTimer = 0;
-		// initialize the score text with 0
+		// inicializar el texto de la partida con 0
 		Space._scoreText = this.add.text(120, 20, "0", this._fontStyle);
-		// set health of the player
+		// Establecer la vida del jugador
 		Space._health = 10;
-		// create new group for candy
+		// crear un nuevo grupo para el espacio
 		this._enemyGroup = this.add.group();
-		// spawn first enemy
+		// generar el primer enemigo
 		Space.item.spawnSpace(this);
 	},
 	managePause: function(){
-		// pause the game
+		// pausar el juego
 		this.game.paused = true;
-		// add proper informational text
+		// agregar texto informativo adecuado
 		var pausedText = this.add.text(100, 250, "Juego pausado.\nVuelva clickear para reanudar el juego. \nY F5 para empezar de nuevo.", this._fontStyle);
-		// set event listener for the user's click/tap the screen
+		// configurar el detector de eventos para el clic / toque del usuario en la pantalla
 		this.input.onDown.add(function(){
-			// remove the pause text
+			// eliminar el texto de pausa
 			pausedText.destroy();
-			// unpause the game
+			// reanudar el juego
 			this.game.paused = false;
 		}, this);
 	},
 	update: function(){
-		// update timer every frame
+		// actualizar el temporizador en cada cuadro
 		this._spawnSpaceTimer += this.time.elapsed;
 		// if spawn timer reach one second (1000 miliseconds)
 		if(this._spawnSpaceTimer > 1000) {
-			// reset it
+			// reiniciarlo
 			this._spawnSpaceTimer = 0;
-			// and spawn new enemy
+			// y generar un nuevo enemigo
 			Space.item.spawnSpace(this);
 		}
-		// loop through all enemy on the screen
+		// recorrer todos los enemigos en la pantalla
 		this._enemyGroup.forEach(function(enemy){
-			// to rotate them accordingly
+			// Girarlos en consecuencia
 			enemy.angle += enemy.rotateMe;
 		});
-		// if the health of the player drops to 0, the player dies = game over
+		// si la vida del jugador cae a 0, el jugador muere = juego terminado
 		if(!Space._health) {
-			// show the game over message
+			// mostrar el mensaje de finalización del juego
 			this.add.sprite((Space.GAME_WIDTH-350)/2, (Space.GAME_HEIGHT-671)/2, 'game-over');
-			// pause the game
+			// pausar el juego
 			this.game.paused = true;
 		}
 	}
@@ -81,47 +81,47 @@ Space.Game.prototype = {
 
 Space.item = {
 	spawnSpace: function(game){
-		// calculate drop position (from 0 to game width) on the x axis
+		//calcular la posición de caída (desde 0 hasta el ancho del juego) en el eje x
 		var dropPos = Math.floor(Math.random()*Space.GAME_WIDTH);
-		// define the offset for every enemy
+		// definir la compensación para cada enemigo
 		var dropOffset = [-27,-36,-36,-38,-48];
-		// randomize enemy type
+		// aleatorizar el tipo de enemigo
 		var enemyType = Math.floor(Math.random()*5);
-		// create new enemy
+		// crear un nuevo enemigo
 		var enemy = game.add.sprite(dropPos, dropOffset[enemyType], 'enemy');
-		// add new animation frame
+		// agregar un nuevo marco de animación
 		enemy.animations.add('anim', [enemyType], 10, true);
-		// play the newly created animation
+		// reproducir la animación recién creada
 		enemy.animations.play('anim');
-		// enable enemy body for physic engine
+		// habilitar el cuerpo enemigo para el motor físico
 		game.physics.enable(enemy, Phaser.Physics.ARCADE);
-		// enable enemy to be clicked/tapped
+		// Permitir que se haga clic / toque al enemigo
 		enemy.inputEnabled = true;
-		// add event listener to click/tap
+		// agregar oyente de eventos para hacer clic / tocar
 		enemy.events.onInputDown.add(this.clickSpace, this);
-		// be sure that the enemy will fire an event when it goes out of the screen
+		// asegúrese de que el enemigo disparará un evento cuando salga de la pantalla
 		enemy.checkWorldBounds = true;
-		// reset enemy when it goes out of screen
+		// restablecer enemigo cuando sale de la pantalla
 		enemy.events.onOutOfBounds.add(this.removeSpace, this);
-		// set the anchor (for rotation, position etc) to the middle of the enemy
+		// establecer el ancla (para rotación, posición, etc.) en el medio del enemigo
 		enemy.anchor.setTo(0.5, 0.5);
-		// set the random rotation value
+		// establecer el valor de rotación aleatorio
 		enemy.rotateMe = (Math.random()*4)-2;
-		// add enemy to the group
+		// agregar enemigo al grupo
 		game._enemyGroup.add(enemy);
 	},
 	clickSpace: function(enemy){
-		// kill the enemy when it's clicked
+		// mata al enemigo cuando se hace clic
 		enemy.kill();
-		// add points to the score
+		// sumar puntos a la puntuación
 		Space._score += 1;
-		// update score text
+		// actualizar el texto de la puntuación
 		Space._scoreText.setText(Space._score);
 	},
 	removeSpace: function(enemy){
-		// kill the enemy
+		// matar al enemigo
 		enemy.kill();
-		// decrease player's health
+		// disminuir la vida del jugador
 		Space._health -= 10;
 	}
 };
