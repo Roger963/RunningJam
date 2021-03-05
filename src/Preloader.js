@@ -12,7 +12,7 @@ Space.Preloader.prototype = {
 		// load images
 		this.load.image('fondo', 'img/fondo.png');
 		this.load.image('estrellas', 'img/estrellas.png');
-		//this.load.image('play', 'img/play.png');
+		this.load.image('astronauta', 'img/astronauta.png');
 		this.load.image('RunningJam', 'img/RunningJam.png');
 		this.load.image('game-over', 'img/gameover.png');
 		this.load.image('score-bg', 'img/score-bg.png');
