@@ -14,7 +14,7 @@ Space.Preloader.prototype = {
 		this.load.image('estrellas', 'img/estrellas.png');
 		this.load.image('astronauta', 'img/astronauta.png');
 		this.load.image('RunningJam', 'img/RunningJam.png');
-		this.load.image('game-over', 'img/gameover.png');
+		this.load.image('game-over', 'img/game-over.png');
 		this.load.image('score-bg', 'img/score-bg.png');
 		this.load.image('button-pause', 'img/button-pause.png');
 		// load spritesheets

@@ -71,7 +71,7 @@ Space.Game.prototype = {
 		// if the health of the player drops to 0, the player dies = game over
 		if(!Space._health) {
 			// show the game over message
-			this.add.sprite((Space.GAME_WIDTH-594)/2, (Space.GAME_HEIGHT-271)/2, 'game-over');
+			this.add.sprite((Space.GAME_WIDTH-350)/2, (Space.GAME_HEIGHT-671)/2, 'game-over');
 			// pause the game
 			this.game.paused = true;
 		}
