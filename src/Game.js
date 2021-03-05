@@ -1,15 +1,15 @@
-Candy.Game = function(game){
+Space.Game = function(game){
 	// define needed variables for Candy.Game
 	this._player = null;
 	this._candyGroup = null;
-	this._spawnCandyTimer = 0;
+	this._spawnSpaceTimer = 0;
 	this._fontStyle = null;
 	// define Candy variables to reuse them in Candy.item functions
-	Candy._scoreText = null;
-	Candy._score = 0;
-	Candy._health = 0;
+	Space._scoreText = null;
+	Space._score = 0;
+	Space._health = 0;
 };
-Candy.Game.prototype = {
+Space.Game.prototype = {
 	create: function(){
 		// start the physics engine
 		this.physics.startSystem(Phaser.Physics.ARCADE);
@@ -17,10 +17,10 @@ Candy.Game.prototype = {
 		this.physics.arcade.gravity.y = 200;
 		// display images: background, floor and score
 		this.add.sprite(0, 0, 'fondo');
-		this.add.sprite(-30, Candy.GAME_HEIGHT-160, 'floor');
+		this.add.sprite(-30, Space.GAME_HEIGHT-160, 'floor');
 		this.add.sprite(10, 5, 'score-bg');
 		// add pause button
-		this.add.button(Candy.GAME_WIDTH-96-10, 5, 'button-pause', this.managePause, this);
+		this.add.button(Space.GAME_WIDTH-96-10, 5, 'button-pause', this.managePause, this);
 		// create the player
 		this._player = this.add.sprite(5, 760, 'monster-idle');
 		// add player animation
@@ -30,15 +30,15 @@ Candy.Game.prototype = {
 		// set font style
 		this._fontStyle = { font: "40px Arial", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
 		// initialize the spawn timer
-		this._spawnCandyTimer = 0;
+		this._spawnSpaceTimer = 0;
 		// initialize the score text with 0
-		Candy._scoreText = this.add.text(120, 20, "0", this._fontStyle);
+		Space._scoreText = this.add.text(120, 20, "0", this._fontStyle);
 		// set health of the player
-		Candy._health = 10;
+		Space._health = 10;
 		// create new group for candy
 		this._candyGroup = this.add.group();
 		// spawn first candy
-		Candy.item.spawnCandy(this);
+		Space.item.spawnSpace(this);
 	},
 	managePause: function(){
 		// pause the game
@@ -55,13 +55,13 @@ Candy.Game.prototype = {
 	},
 	update: function(){
 		// update timer every frame
-		this._spawnCandyTimer += this.time.elapsed;
+		this._spawnSpaceTimer += this.time.elapsed;
 		// if spawn timer reach one second (1000 miliseconds)
-		if(this._spawnCandyTimer > 1000) {
+		if(this._spawnSpaceTimer > 1000) {
 			// reset it
-			this._spawnCandyTimer = 0;
+			this._spawnSpaceTimer = 0;
 			// and spawn new candy
-			Candy.item.spawnCandy(this);
+			Space.item.spawnSpace(this);
 		}
 		// loop through all candy on the screen
 		this._candyGroup.forEach(function(candy){
@@ -69,19 +69,19 @@ Candy.Game.prototype = {
 			candy.angle += candy.rotateMe;
 		});
 		// if the health of the player drops to 0, the player dies = game over
-		if(!Candy._health) {
+		if(!Space._health) {
 			// show the game over message
-			this.add.sprite((Candy.GAME_WIDTH-594)/2, (Candy.GAME_HEIGHT-271)/2, 'game-over');
+			this.add.sprite((Space.GAME_WIDTH-594)/2, (Space.GAME_HEIGHT-271)/2, 'game-over');
 			// pause the game
 			this.game.paused = true;
 		}
 	}
 };
 
-Candy.item = {
-	spawnCandy: function(game){
+Space.item = {
+	spawnSpace: function(game){
 		// calculate drop position (from 0 to game width) on the x axis
-		var dropPos = Math.floor(Math.random()*Candy.GAME_WIDTH);
+		var dropPos = Math.floor(Math.random()*Space.GAME_WIDTH);
 		// define the offset for every candy
 		var dropOffset = [-27,-36,-36,-38,-48];
 		// randomize candy type
@@ -97,11 +97,11 @@ Candy.item = {
 		// enable candy to be clicked/tapped
 		candy.inputEnabled = true;
 		// add event listener to click/tap
-		candy.events.onInputDown.add(this.clickCandy, this);
+		candy.events.onInputDown.add(this.clickSpace, this);
 		// be sure that the candy will fire an event when it goes out of the screen
 		candy.checkWorldBounds = true;
 		// reset candy when it goes out of screen
-		candy.events.onOutOfBounds.add(this.removeCandy, this);
+		candy.events.onOutOfBounds.add(this.removeSpace, this);
 		// set the anchor (for rotation, position etc) to the middle of the candy
 		candy.anchor.setTo(0.5, 0.5);
 		// set the random rotation value
@@ -109,18 +109,18 @@ Candy.item = {
 		// add candy to the group
 		game._candyGroup.add(candy);
 	},
-	clickCandy: function(candy){
+	clickSpace: function(candy){
 		// kill the candy when it's clicked
 		candy.kill();
 		// add points to the score
-		Candy._score += 1;
+		Space._score += 1;
 		// update score text
-		Candy._scoreText.setText(Candy._score);
+		Space._scoreText.setText(Space._score);
 	},
-	removeCandy: function(candy){
+	removeSpace: function(candy){
 		// kill the candy
 		candy.kill();
 		// decrease player's health
-		Candy._health -= 10;
+		Space._health -= 10;
 	}
 };

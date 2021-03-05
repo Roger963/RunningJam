@@ -1,13 +1,13 @@
-Candy.Preloader = function(game){
+Space.Preloader = function(game){
 	// define width and height of the game
-	Candy.GAME_WIDTH = 1055;
-	Candy.GAME_HEIGHT = 703;
+	Space.GAME_WIDTH = 1055;
+	Space.GAME_HEIGHT = 703;
 };
-Candy.Preloader.prototype = {
+Space.Preloader.prototype = {
 	preload: function(){
 		// set background color and preload image
 		this.stage.backgroundColor = '#B4D9E7';
-		this.preloadBar = this.add.sprite((Candy.GAME_WIDTH-311)/2, (Candy.GAME_HEIGHT-27)/2, 'preloaderBar');
+		this.preloadBar = this.add.sprite((Space.GAME_WIDTH-311)/2, (Space.GAME_HEIGHT-27)/2, 'preloaderBar');
 		this.load.setPreloadSprite(this.preloadBar);
 		// load images
 		this.load.image('fondo', 'img/fondo.png');

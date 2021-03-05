@@ -1,6 +1,6 @@
-var Candy = {};
-Candy.Boot = function(game){};
-Candy.Boot.prototype = {
+var Space = {};
+Space.Boot = function(game){};
+Space.Boot.prototype = {
 	preload: function(){
 		// preload the loading indicator first before anything else
 		this.load.image('preloaderBar', 'img/loading-bar.png');

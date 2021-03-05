@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>Monster Wants Candy demo</title>
+	<title>Monster Wants Space demo</title>
 	<style> body { margin: 0; background: #B4D9E7; } </style>
 	<script src="src/phaser-2.0.7.min.js"></script>
 	<script src="src/Boot.js"></script>
@@ -16,10 +16,10 @@
 	// initialize the framework
 	var game = new Phaser.Game(1055, 703, Phaser.AUTO, 'game');
 	// add game states
-	game.state.add('Boot', Candy.Boot);
-	game.state.add('Preloader', Candy.Preloader);
-	game.state.add('MainMenu', Candy.MainMenu);
-	game.state.add('Game', Candy.Game);
+	game.state.add('Boot', Space.Boot);
+	game.state.add('Preloader', Space.Preloader);
+	game.state.add('MainMenu', Space.MainMenu);
+	game.state.add('Game', Space.Game);
 	// start the Boot state
 	game.state.start('Boot');
 })();
