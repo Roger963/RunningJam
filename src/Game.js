@@ -44,7 +44,7 @@ Space.Game.prototype = {
 		// pause the game
 		this.game.paused = true;
 		// add proper informational text
-		var pausedText = this.add.text(100, 250, "Game paused.\nTap anywhere to continue.", this._fontStyle);
+		var pausedText = this.add.text(100, 250, "Juego pausado.\nVuelva clickear para reanudar el juego. \nY F5 para empezar de nuevo.", this._fontStyle);
 		// set event listener for the user's click/tap the screen
 		this.input.onDown.add(function(){
 			// remove the pause text
