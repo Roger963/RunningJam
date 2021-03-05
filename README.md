@@ -52,6 +52,3 @@ Esto es para que el personaje se mueva con las flechas, parte 2**
 
 
 
-
-
-**   **
