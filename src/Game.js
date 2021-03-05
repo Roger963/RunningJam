@@ -17,6 +17,7 @@ Space.Game.prototype = {
 		this.physics.arcade.gravity.y = 200;
 		// display images: background, floor and score
 		this.add.sprite(0, 0, 'fondo');
+		this.add.sprite(0, 0, 'estrellas');
 		this.add.sprite(-30, Space.GAME_HEIGHT-160, 'floor');
 		this.add.sprite(10, 5, 'score-bg');
 		// add pause button
