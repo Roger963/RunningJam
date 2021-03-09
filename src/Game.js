@@ -1,7 +1,7 @@
 Space.Game = function(game){
 	// definir las variables necesarias para el espacio.
 	this._player = null;
-	this._candyGroup = null;
+	this._SpaceGroup = null;
 	this._spawnSpaceTimer = 0;
 	this._fontStyle = null;
 	// definir variables espaciales para reutilizarlas en funciones space.item
