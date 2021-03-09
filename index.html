@@ -13,14 +13,14 @@
 <body>
 <script>
 (function() {
-	// initialize the framework
+	// inicializar el marco
 	var game = new Phaser.Game(1055, 703, Phaser.AUTO, 'game');
-	// add game states
+	// agregar estados de juego
 	game.state.add('Boot', Space.Boot);
 	game.state.add('Preloader', Space.Preloader);
 	game.state.add('MainMenu', Space.MainMenu);
 	game.state.add('Game', Space.Game);
-	// start the Boot state
+	// iniciar el estado de arranque
 	game.state.start('Boot');
 })();
 </script>
