@@ -19,7 +19,6 @@ Space.Preloader.prototype = {
 		this.load.image('button-pause', 'img/button-pause.png');
 		// cargar imagenes
 		this.load.spritesheet('enemy', 'img/enemy.png', 82, 98);
-		this.load.spritesheet('monster-idle', 'img/monster-idle.png', 103, 131);
 		this.load.spritesheet('play', 'img/play.png', 401, 143);
 	},
 	create: function(){

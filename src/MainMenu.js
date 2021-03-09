@@ -4,7 +4,6 @@ Space.MainMenu.prototype = {
 		// mostrar imágenes
 		this.add.sprite(0, 0, 'fondo');
 		this.add.sprite(0,0, 'estrellas');
-		
 		this.add.sprite(90, Space.GAME_HEIGHT-414, 'astronauta');
 		this.add.sprite((Space.GAME_WIDTH-820)/2, -80, 'RunningJam');
 		// agrega el botón que iniciará el juego

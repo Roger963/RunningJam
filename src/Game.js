@@ -22,12 +22,6 @@ Space.Game.prototype = {
 		this.add.sprite(10, 5, 'score-bg');
 		// agregar botón de pausa
 		this.add.button(Space.GAME_WIDTH-96-10, 5, 'button-pause', this.managePause, this);
-		// Crear el jugador
-		this._player = this.add.sprite(5, 760, 'monster-idle');
-		// agregar animación de jugador
-		this._player.animations.add('idle', [0,1,2,3,4,5,6,7,8,9,10,11,12], 10, true);
-		// reproducir la animación
-		this._player.animations.play('idle');
 		// establecer estilo de fuente
 		this._fontStyle = { font: "40px Arial", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
 		// inicializar el temporizador de generación
