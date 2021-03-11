@@ -18,7 +18,7 @@ Space.Game.prototype = {
 		// mostrar imágenes: fondo, suelo y puntuación
 		this.add.sprite(0, 0, 'fondo');
 		this.add.sprite(0, 0, 'estrellas');
-		this.add.sprite(-30, Space.GAME_HEIGHT-160, 'floor');
+
 		this.add.sprite(10, 5, 'score-bg');
 		// agregar botón de pausa
 		this.add.button(Space.GAME_WIDTH-96-10, 5, 'button-pause', this.managePause, this);

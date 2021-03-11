@@ -17,7 +17,8 @@ Space.Preloader.prototype = {
 		this.load.image('game-over', 'img/game-over.png');
 		this.load.image('score-bg', 'img/score-bg.png');
 		this.load.image('button-pause', 'img/button-pause.png');
-		// cargar imagenes
+		this.load.image('coete', 'img/coete.png');
+		// cargar imagenes especiales
 		this.load.spritesheet('enemy', 'img/enemy.png', 82, 98);
 		this.load.spritesheet('play', 'img/play.png', 401, 143);
 	},
