@@ -15,7 +15,7 @@ Space.Game.prototype = {
 		this.physics.startSystem(Phaser.Physics.ARCADE);
 		// establecer la gravedad global
 		this.physics.arcade.gravity.y = 200;
-		// mostrar imágenes: fondo, suelo y puntuación
+		// mostrar imágenes: fondo, y puntuación
 		this.add.sprite(0, 0, 'fondo');
 		this.add.sprite(0, 0, 'estrellas');
 
@@ -23,7 +23,7 @@ Space.Game.prototype = {
 		// agregar botón de pausa
 		this.add.button(Space.GAME_WIDTH-96-10, 5, 'button-pause', this.managePause, this);
 		// establecer estilo de fuente
-		this._fontStyle = { font: "40px Arial", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
+		this._fontStyle = { font: "40px Arial", fill: "#5499C7", stroke: "#333", strokeThickness: 15, align: "center" };
 		// inicializar el temporizador de generación
 		this._spawnSpaceTimer = 0;
 		// inicializar el texto de la partida con 0
